@@ -19,7 +19,7 @@ CustomServerList aims to let players and modpack creators add and manage custom 
 - **Permission Controls** — Restrict editing or deletion through the in-game GUI.
 - **Custom Actions** — Configure URL-opening actions for entries.
 
-**Note:** The configuration interface and JSON management system are implemented, but integration with Minecraft's original world and server selection lists is still in development.
+- **Custom List Entries** — Show entries with two description lines and an optional icon in Minecraft's world and server lists.
 
 ## Compatibility
 
@@ -53,8 +53,9 @@ Each JSON file represents a single custom entry. The filename should match the e
 {
   "id": "cmclauncher",
   "name": "CMCLauncher",
-  "description": "Visit the official CMCLauncher project",
-  "icon": "",
+  "descriptionLine1": "Visit the official CMCLauncher project",
+  "descriptionLine2": "Opens the project on GitHub",
+  "icon": "icons/cmclauncher.png",
   "display": "singleplayer",
   "pinned": true,
   "allowDelete": true,
@@ -72,15 +73,16 @@ Each JSON file represents a single custom entry. The filename should match the e
 |---|---|---|
 | `id` | String | Unique identifier and JSON filename |
 | `name` | String | Display name |
-| `description` | String | Entry description |
-| `icon` | String | Reserved for custom icon support |
+| `descriptionLine1` | String | First description line. Existing `description` fields are read as the first line. |
+| `descriptionLine2` | String | Second description line |
+| `icon` | String | Path to a 64×64 PNG relative to `config/customserverlist/entries`. An empty path or an unreadable icon uses the default icon. |
 | `display` | String | `singleplayer`, `multiplayer`, or `both` |
-| `pinned` | Boolean | Whether the entry is pinned |
+| `pinned` | Boolean | Whether to show the entry above saved worlds or servers |
 | `allowDelete` | Boolean | Whether deletion is allowed through the GUI |
 | `allowEdit` | Boolean | Whether editing is allowed through the GUI |
 | `enabled` | Boolean | Whether the entry is enabled |
-| `sortOrder` | Integer | Sorting priority |
-| `action` | String | `none` or `open_url` （Work In Process)|
+| `sortOrder` | Integer | Lower values appear first among entries with the same pinned status |
+| `action` | String | `none` or `open_url` |
 | `url` | String | Target URL for the `open_url` action |
 
 The `allowDelete` and `allowEdit` settings are GUI restrictions, not file-system security controls.
@@ -96,6 +98,8 @@ To manage entries:
 5. Create, edit, or delete entries using the configuration interface.
 
 Changes are saved to JSON files automatically when using the editor's save action.
+
+In the world or server list, double-click an entry or select it and use the primary button to open its configured URL after confirmation.
 
 ## Development
 
@@ -151,9 +155,9 @@ Build artifacts will be generated in `build/libs/` after a successful build.
 - [x] In-game entry management GUI
 - [x] Mod configuration screen integration
 - [x] Entry creation, editing, and deletion
-- [ ] Display custom entries in the singleplayer world list
-- [ ] Display custom entries in the multiplayer server list
-- [ ] Custom entry icons
+- [x] Display custom entries in the singleplayer world list
+- [x] Display custom entries in the multiplayer server list
+- [x] Custom entry icons
 - [ ] Improved editor layout and field descriptions
 - [ ] Localization support
 - [ ] Additional entry actions

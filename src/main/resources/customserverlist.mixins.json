@@ -4,6 +4,13 @@
   "package": "org.customserverlist.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [],
-  "client": [],
+  "client": [
+    "WorldSelectionListMixin",
+    "SelectWorldScreenMixin",
+    "ServerSelectionListMixin",
+    "JoinMultiplayerScreenAccessor",
+    "JoinMultiplayerScreenMixin",
+    "OnlineServerEntryMixin"
+  ],
   "injectors": { "defaultRequire": 1 }
 }
